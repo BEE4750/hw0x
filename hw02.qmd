@@ -1,0 +1,186 @@
+---
+title: "BEE 4750 Homework 2: Gaussian Plumes"
+format:
+    html:        
+        warning: true
+        error: true
+    ipynb:
+        warning: true
+        error: true
+        code-annotation: below
+jupyter: julia-1.9
+format-links: []
+---
+
+::: {.content-visible when-format="ipynb"}
+**Name**:
+
+**ID**:
+:::
+
+::: {.callout-important icon=false}
+### Due Date
+
+Friday, 9/22/23, 9:00pm
+:::
+
+::: {.content-visible when-format="html"}
+
+:::{.callout-caution}
+
+If you are enrolled in the course, make sure that you use the GitHub Classroom link provided in Ed Discussion, or you may not be able to get help if you run into problems.
+
+Otherwise, you can [find the Github repository here]({{< var github_org.repo >}}/hw02).
+
+:::
+
+:::
+
+## Overview
+
+### Instructions
+
+- Problems 1-3 consist of a series of code snippets for you to interpret and debug. For Problems 1 and 2, you will be asked to identify relevant error(s) and fix the code. For Problem 3, the code works as intended; your goal is to identify the code's purpose by following its logic.
+- Problem 4 asks you to convert a verbal description of a wastewater treatment system into a Julia function, and then to use that function to explore the impact of different wastewater allocation strategies.
+
+### Load Environment
+
+The following code loads the environment and makes sure all needed packages are installed. This should be at the start of most Julia scripts.
+
+```{julia}
+#| output: false
+import Pkg
+Pkg.activate(@__DIR__)
+Pkg.instantiate()
+```
+
+```{julia}
+using Plots
+using LaTeXStrings
+using DataFrames
+```
+
+## Problems (Total: 100 Points)
+
+::: {.cell .markdown}
+### Problem 1 (40 points)
+
+A ground-level receptor is located 1.5 km downwind from the center-line of a chimney emitting 2 kg/s of SO~2~. The chimney is 100m high and the plume initially rises another 10m being advected downwind. We want to know what 
+:::
+
+::: {.cell .markdown}
+
+#### Problem 1.1 (20 points)
+
+Write a function `gaussian_plume` to simulate the SO~2~ concentration at ground level (mg/m^3^). The `gaussian_plume` function should accept the following inputs:
+
+- the displacement from the source $x$ and $y$, where $x$ is the distance downwind (km) and $y$ is the distance crosswind (km);
+- the wind speed $u$ (m/s);
+- the SO~2~ emissions rate $Q$ (g/s);
+- the effective height of the source $H$ (m);
+- the atmospheric stability class (1--6);
+- the table of dispersion coefficients `turb_coef`, which is provided for you below as a [`DataFrame`](https://dataframes.juliadata.org/stable/).
+:::
+
+```{julia}
+# set up coefficients in matrix form
+turb_coef = [
+    213.0  440.8 1.041 9.27  459.7 2.094 -9.6
+    156.0  106.6 1.149 3.3   108.2 1.098 2.0
+    104.0  61.0  0.911 0.0   61.0  0.911 0.0
+    68.0   33.2  0.725 -1.7  44.5  0.516 -13.0
+    50.5   22.8  0.675 -1.3  55.4  0.305 -34.0
+    34.0   14.35 0.740 -0.35 62.6  0.180 -48.6 
+]
+# now convert to DataFrame with names
+# column names ending with 1 refer to coefficients for x < 1km, column names ending with 2 refer to coefficients for x > 1km 
+turb_coef = DataFrame(turb_coef, ["a", "c1", "d1", "f1", "c2", "d2", "f2"])
+```
+
+::: {.callout-note}
+## DataFrames
+
+A `DataFrame` is the standard data structure in Julia for working with tabular data (if you've used Python, you can compare it to `pandas`). Since `turb_coef` is a `DataFrame`, you can access elements with syntax like `turb_coef[1, :c]` (to access the first element of a column named `c`).
+:::
+
+::: {.callout-important}
+## Pass Data To Functions When Possible
+
+Remember to pass `turb_coef` to `gaussian_plums` as an argument --- this is generally good Julia (and broader programming) style and improves performance.
+:::
+
+::: {.cell .markdown}
+#### Problem 1.2 (10 points)
+
+Assume the wind is blowing at 5 m/s. Use your function to calculate the SO~2~ concentration 600 m downwind, both along the centerline and 1 km crosswind, for the neutral (cloudy-day) atmospheric stability class (D/4).
+:::
+
+::: {.cell .markdown}
+### Problem 1.3 (10 points)
+
+Find the exposure standard in the United States for SO~2~ (**make sure to cite where you found it!**). How do your results from Problem 1.2 compare?
+:::
+
+::: {.cell .markdown}
+### Problem 2 (35 points)
+:::
+
+::: {.cell .markdown}
+#### Problem 2.1 (10 points)
+
+Plot (using s [`heatmap`](https://viveks.me/environmental-systems-analysis/tutorials/julia-basics.html#comprehensions)) the SO~2~ concentration over a 5km downwind by 5km crosswind (relative to the plume source) region for the neutral (cloudy-day) atmospheric stability class (D/4). 
+
+::: {.callout-tip}
+## Using Comprehensions to Apply Functions Across Inputs
+
+Writing loops in Julia outside of functions can be finicky due to issues of scope (the details aren't important, but this has to do with how Julia compiles code for performance). A solution is to use a [comprehension](https://viveks.me/environmental-systems-analysis/tutorials/julia-basics.html#comprehensions). For example, to apply a function `f` over all combinations of two vectors `x` and `y`,
+
+```julia
+[f(i, j) for i in x for j in y]
+```
+will return a 2d array of outputs of `f`.
+:::
+
+:::
+
+::: {.cell .markdown}
+#### Problem 2.2 (10 points)
+
+Make the same plot for each stability class.
+:::
+
+::: {.cell .markdown}
+#### Problem 2.3 (10 points)
+
+For the neutral stability class, make the same plot for the following wind speeds: 5m/s, 10m/s, 15m/s, 20m/s.
+:::
+
+::: {.cell .markdown}
+#### Problem 2.4 (5 points)
+
+Compare your results from Problems 2.2 and 2.3, What can you conclude about the impact of atmospheric stability vs. wind speed for pollutant dispersion?
+:::
+
+::: {.cell .markdown}
+### Problem 3 (25 points)
+
+Suppose we have two sources, with the following characteristics (distance relative to a ground-level receptor):
+
+| Emissions rate (kg/s) | Height (m) | Initial Plume Rise (m) | Upwind Distance (km) | Crosswind Distance (km)|
+|----:|----:|----:|----:|----:|
+| 1 | 75 | 10 | 1.5 | 2 |
+| 100 | 60 | 15 | 0.75 | 1 |
+
+:::
+
+::: {.cell .markdown}
+#### Problem 3.1 (15 points)
+
+If the wind blows at 10 m/s, what is the worst possible concentration of SO~2~ at the receptor? Under what atmospheric conditions might these occur?
+:::
+
+::: {.cell .markdown}
+#### Problem 3.2 (10 points)
+
+How does this compare to the exposure standard you found for Problem 1.3? If a control is needed, what information might you need to make a decision about how to allocate those reductions across the two sources? 
+:::
