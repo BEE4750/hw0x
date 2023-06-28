@@ -168,8 +168,8 @@ Suppose we have two sources, with the following characteristics (distance relati
 
 | Emissions rate (kg/s) | Height (m) | Initial Plume Rise (m) | Upwind Distance (km) | Crosswind Distance (km)|
 |----:|----:|----:|----:|----:|
-| 1 | 75 | 10 | 1.5 | 2 |
-| 100 | 60 | 15 | 0.75 | 1 |
+| 1.2 | 75 | 10 | 1.5 | 2 |
+| 1 | 60 | 15 | 0.75 | 1 |
 
 :::
 
