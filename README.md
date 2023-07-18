@@ -1,4 +1,4 @@
-# Homework 2: Simulating Air Pollution Transport
+# Homework 2: Simulating Air Pollution Dispersion
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -29,14 +29,14 @@ The repository consists of the following files:
 
 ## Dependencies
 
-This notebook was written using Julia 1.8.5, and depends on the following packages:
+This notebook was written using Julia 1.9.2, and depends on the following packages:
 - `Plots.jl`
 - `LaTeXStrings.jl`
 - `DataFrames.jl`
 
 ## Prerequisites
 
-1. [Install Julia](https://julialang.org/downloads/) before beginning this lab. This notebook was developed with version 1.9.1, but any 1.9.x should work (there could be some issues with other versions, depending on what's changed).
+1. [Install Julia](https://julialang.org/downloads/) before beginning this lab. This notebook was developed with version 1.9.2, but any 1.9.x should work (there could be some issues with other versions, depending on what's changed).
 2. If necessary, [install git](https://happygitwithr.com/install-git.html) and [create a GitHub account](https://github.com). 
 3. [Clone the repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository). I recommend doing this in a dedicated `BEE4750/` folder, which can also house homework assignment repositories and lecture notes. You can clone directly into the `BEE4750/` folder.   For Windows (or from another graphical interface), just create a `BEE4750` folder, then a `hw` folder inside of that, then clone into that folder. Or to clone into a `BEE4750/hw` folder, from a command prompt:
     ```bash
