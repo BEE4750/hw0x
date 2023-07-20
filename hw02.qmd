@@ -184,3 +184,9 @@ If the wind blows at 10 m/s, what is the worst possible concentration of SO~2~ a
 
 How does this compare to the exposure standard you found for Problem 1.3? If a control is needed, what information might you need to make a decision about how to allocate those reductions across the two sources? 
 :::
+
+::: {.cell .markdown}
+## References
+
+List any external references consulted, including classmates.
+:::
