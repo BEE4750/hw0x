@@ -40,8 +40,9 @@ Otherwise, you can [find the Github repository here]({{< var github_org.repo >}}
 
 ### Instructions
 
-- Problems 1-3 consist of a series of code snippets for you to interpret and debug. For Problems 1 and 2, you will be asked to identify relevant error(s) and fix the code. For Problem 3, the code works as intended; your goal is to identify the code's purpose by following its logic.
-- Problem 4 asks you to convert a verbal description of a wastewater treatment system into a Julia function, and then to use that function to explore the impact of different wastewater allocation strategies.
+- Problem 1 asks you to compute the concentration of a pollutant from a point souce at a ground-level receptor and compare this concentration to a regulatory exposure standard.
+- Problem 2 involves writing a simulation model for Gaussian plume dispersion and looking at the sensitivity of the dispersion and concentrations to changes in atmospheric stability and wind speed.
+- Problem 3 asks you to examine the impact of two point sources on ground-level receptor concentrations.
 
 ### Load Environment
 
